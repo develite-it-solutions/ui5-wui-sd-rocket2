@@ -1,0 +1,38 @@
+{
+	"welcomeFile": "manifest.json",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/resources/(.*)$",
+      "target": "/resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/test-resources/(.*)$",
+      "target": "/test-resources/$1",
+      "authenticationType": "none",
+      "destination": "ui5"
+    },
+    {
+      "source": "^/sap/opu/odata/(.*)$",
+      "target": "/proxy/sap/opu/odata/$1",
+      "destination": "odata-gateway",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
+      "source": "^/Northwind/(.*)$",
+      "target": "/v2/Northwind/$1",
+      "destination": "northwind",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
+      "source": "^(.*)$",
+      "target": "$1",
+      "service": "html5-apps-repo-rt",
+      "authenticationType": "xsuaa"
+    }
+  ]
+}

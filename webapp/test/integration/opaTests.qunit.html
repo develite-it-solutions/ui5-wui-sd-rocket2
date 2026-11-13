@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Integration tests</title>
+		<meta charset="utf-8">
+
+		<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-async="true"
+			data-sap-ui-theme-roots='{
+				"wuerthbelizeci" : "/themes/wuerthbelizeci/UI5/",
+				"edlbelize" : "/themes/edlbelize/UI5/",
+				"hhwbelizeci" : "/themes/hhwbelize/UI5/",
+				"hkbelizeci" : "/themes/hkbelizeci/UI5/",
+				"recabelize" : "/themes/recabelize/UI5/"
+			}'
+			data-sap-ui-resourceroots='{
+				"wui.sd.rocket2": "../../",
+				"wui.core": "/wui/core/",
+				"wui.m": "/wui/m/",
+				"wui.flp.plugin.statistics": "/wui/flp/plugin/statistics/"
+			}'
+			data-sap-ui-animation="false"
+			data-sap-ui-frameOptions="allow">
+		</script>
+
+		<link rel="stylesheet" href="../../resources/sap/ui/thirdparty/qunit-2.css"/>
+		<script src="../../resources/sap/ui/thirdparty/qunit-2.js"></script>
+    <script src="../../resources/sap/ui/thirdparty/sinon.js"></script>
+		<script src="../../resources/sap/ui/qunit/qunit-junit.js"></script>
+
+		<script src="opaTests.qunit.js"></script>
+
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+	</body>
+</html>

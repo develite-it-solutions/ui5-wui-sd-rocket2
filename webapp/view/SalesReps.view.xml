@@ -1,0 +1,146 @@
+<mvc:View
+	controllerName="wui.sd.rocket2.controller.SalesReps"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:simpleform="sap.ui.layout.form">
+
+	<f:DynamicPage
+		id="idSalesRepsPage"
+		headerExpanded="{layoutModel>/salesRepsPage/headerExpanded}"
+		toggleHeaderOnTitleClick="{layoutModel>/salesRepsPage/titleClickable}"
+		showFooter="false">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>salesRepsPageHeaderText}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox>
+				<VBox alignItems="End" visible="{= ${/SalesRepSet} ? ${/SalesRepSet}.length > 1 : false}">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+					<HBox>
+						<Text text="{= ${rocket2Online>/#Header/ProjectedTOChangeTotal/@sap:heading} === undefined ? ${rocket2Online>/#Header/ProjectedTOChangeTotal/@sap:label} : ${rocket2Online>/#Header/ProjectedTOChangeTotal/@sap:heading}}" />
+						<ObjectNumber
+							number="{
+								parts:[{path:'/ProjectedTOChangeAllSalesMan'},{path:'/ProjectedTOChangeAllSalesManCurrency'}],
+								type: 'sap.ui.model.type.Currency',
+								formatOptions: {showMeasure: false}
+							}"
+							unit="{/ProjectedTOChangeAllSalesManCurrency}"
+							emphasized="false"
+							class="sapUiTinyMarginBegin" />
+					</HBox>
+				</VBox>
+				<List items="{path: '/SalesRepSet'}" noDataText="{i18n>salesRepsListNoDataText}" class="sapUiSmallMargin">
+					<CustomListItem type="Navigation" press="onPressSalesMan">
+						<VBox class="sapUiTinyMarginTop">
+							<HBox width="100%">
+								<!-- Avatar -->
+								<VBox>
+									<Avatar
+										src="{PhotoLink}"
+										displaySize="S"
+										showBorder="true"
+										imageFitType="Contain"
+										backgroundColor="Accent10"
+										class="sapUiSmallMarginBegin">
+									</Avatar>
+								</VBox>
+
+								<!-- Salesrep info -->
+								<VBox class="sapUiTinyMarginBegin" fitContainer="true" justifyContent="Center">
+									<Text text="{SalesManName}" tooltip="{= ${rocket2Online>/#Header/SalesManName/@sap:heading} === undefined ? ${rocket2Online>/#Header/SalesManName/@sap:label} : ${rocket2Online>/#Header/SalesManName/@sap:heading}}" class="wuiFontBold" />
+									<HBox>
+										<core:Icon src="sap-icon://wui/wuerth-verkaeufer" />
+										<Text
+											class="sapUiTinyMarginBegin"
+											text="{
+												parts: [
+													'SalesMan'
+												],
+												formatter: '.formatter.removeLeadingZeroes'
+											}"
+											tooltip="{= ${rocket2Online>/#Header/SalesMan/@sap:heading} === undefined ? ${rocket2Online>/#Header/SalesMan/@sap:label} : ${rocket2Online>/#Header/SalesMan/@sap:heading}}" />
+
+										<core:Icon src="sap-icon://wui/building-office-b" class="sapUiSmallMarginBegin" />
+										<Text text="{SalesOrganization}" tooltip="{= ${rocket2Online>/#Header/SalesOrganization/@sap:heading} === undefined ? ${rocket2Online>/#Header/SalesOrganization/@sap:label} : ${rocket2Online>/#Header/SalesOrganization/@sap:heading}}" class="sapUiTinyMarginBegin" />
+									</HBox>
+								</VBox>
+							</HBox>
+
+							<HBox fitContainer="true" class="sapUiTinyMarginBegin">
+								<VBox>
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<simpleform:SimpleForm
+										id="idGeneralSalesrepData"
+										editable="false"
+										visible="true">
+										<Label text="{= ${rocket2Online>/#Header/Manager/@sap:heading} === undefined ? ${rocket2Online>/#Header/Manager/@sap:label} : ${rocket2Online>/#Header/Manager/@sap:heading}}" labelFor="idManager" design="Bold" />
+										<Text id="idManager" text="{ManagerName} / {Manager}" />
+										<Label text="{= ${rocket2Online>/#Header/AreaManager/@sap:heading} === undefined ? ${rocket2Online>/#Header/AreaManager/@sap:label} : ${rocket2Online>/#Header/AreaManager/@sap:heading}}" labelFor="idAreaManager" design="Bold" />
+										<Text id="idAreaManager" text="{AreaManagerName} / {AreaManager}" />
+										<Label text="{= ${rocket2Online>/#Header/RegionalManager/@sap:heading} === undefined ? ${rocket2Online>/#Header/RegionalManager/@sap:label} : ${rocket2Online>/#Header/RegionalManager/@sap:heading}}" labelFor="idRegionalManager" design="Bold" />
+										<Text id="idRegionalManager" text="{
+												parts: [
+													'RegionalManager'
+												],
+												formatter: '.formatter.removeLeadingZeroes'
+											}" />
+										<Label text="{= ${rocket2Online>/#Header/ProjectedTOChangeSalesMan/@sap:heading} === undefined ? ${rocket2Online>/#Header/ProjectedTOChangeSalesMan/@sap:label} : ${rocket2Online>/#Header/ProjectedTOChangeSalesMan/@sap:heading}}" labelFor="idProjectedTOChangeSalesMan" design="Bold" />
+										<ObjectNumber
+											id="idProjectedTOChangeSalesMan"
+											number="{
+												parts:[{path:'ProjectedTOChangeSalesMan'},{path:'Currency'}],
+												type: 'sap.ui.model.type.Currency',
+												formatOptions: {showMeasure: false}
+											}"
+											unit="{Currency}"
+											emphasized="false"
+										/>
+									</simpleform:SimpleForm>
+								</VBox>
+								<VBox>
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<simpleform:SimpleForm
+										id="idSalesRepCounter"
+										editable="false"
+										visible="true">
+										<Label text="{= ${rocket2Online>/#Header/CountOfCustomers/@sap:heading} === undefined ? ${rocket2Online>/#Header/CountOfCustomers/@sap:label} : ${rocket2Online>/#Header/CountOfCustomers/@sap:heading}}" labelFor="idCountOfCustomers" design="Bold" />
+										<Text id="idCountOfCustomers" text="{CountOfCustomersD}" />
+										<Label text="{= ${rocket2Online>/#Header/CountZvpconvVar0/@sap:heading} === undefined ? ${rocket2Online>/#Header/CountZvpconvVar0/@sap:label} : ${rocket2Online>/#Header/CountZvpconvVar0/@sap:heading}}" labelFor="idCountZvpconvVar0" design="Bold" />
+										<Text id="idCountZvpconvVar1" text="{CountZvpconvVar0}" />
+										<Label text="{= ${rocket2Online>/#Header/CountZvpconvVar1/@sap:heading} === undefined ? ${rocket2Online>/#Header/CountZvpconvVar1/@sap:label} : ${rocket2Online>/#Header/CountZvpconvVar1/@sap:heading}}" labelFor="idCountZvpconvVar1" design="Bold" />
+										<Text id="idCountZvpconvVar2" text="{CountZvpconvVar1}" />
+										<Label text="{= ${rocket2Online>/#Header/MarketPriceLevelTotal12M/@sap:heading} === undefined ? ${rocket2Online>/#Header/MarketPriceLevelTotal12M/@sap:label} : ${rocket2Online>/#Header/MarketPriceLevelTotal12M/@sap:heading}}" labelFor="idMarketPriceLevelTotal12M" design="Bold" />
+										<ObjectNumber
+											id="idMarketPriceLevelTotal12M"
+											number="{
+												path: 'MarketPriceLevelTotal12M',
+												type: 'sap.ui.model.type.Float',
+												formatOptions: {
+													minFractionDigits: 2,
+													maxFractionDigits: 2
+												}
+											}"
+											unit="%"
+											emphasized="false" />
+									</simpleform:SimpleForm>
+								</VBox>
+							</HBox>
+						</VBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

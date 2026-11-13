@@ -1,0 +1,194 @@
+{
+  "_version": "1.48.0",
+  "sap.app": {
+    "id": "wui.sd.rocket2",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": [
+        ""
+      ],
+      "fallbackLocale": ""
+    },
+    "title": "{{appTitle}}",
+    "subTitle": "{{appSubTitle}}",
+    "shortTitle": "{{appShortTitle}}",
+    "info": "{{appInfo}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.3"
+    },
+    "dataSources": {
+      "rocket2Online": {
+        "uri": "/sap/opu/odata/W4E/rkt2_srv/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "test/localservice/metadata.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "wui-sd-rocket2-inbound": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "Product",
+          "action": "manage",
+          "title": "{{appTitle}}",
+          "subTitle": "",
+          "info": "",
+          "icon": "sap-icon://task"
+        }
+      }
+    },
+    "tags": {
+      "keywords": [
+        "{{app.tag.seed}}",
+        "{{app.tag.seed.fullscreen}}"
+      ]
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://task",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "fullWidth": false
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "wui.sd.rocket2.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "handleValidation": true,
+    "dependencies": {
+      "minUI5Version": "1.120.26",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "wui.core": {},
+        "wui.m": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "wui.sd.rocket2.i18n.i18n"
+        }
+      },
+      "rocket2Online": {
+        "dataSource": "rocket2Online",
+        "settings": {
+          "metadataUrlParams": {
+            "sap-documentation": "all"
+          },
+          "defaultCountMode": "Inline",
+          "json": true,
+          "useBatch": true,
+          "disableHeadRequestForToken": true,
+          "defaultBindingMode": "OneWay",
+          "defaultUpdateMethod": "PUT",
+          "refreshAfterChange": false
+        }
+      },
+      "": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "layoutModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/layoutModel.json"
+      },
+      "appView": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "model/appViewModel.json"
+      }
+    },
+    "resources": {
+      "css": [],
+      "js": [
+        {
+          "uri": "thirdparty/moment/moment-with-locales.min.js"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "viewType": "XML",
+        "viewPath": "wui.sd.rocket2.view",
+        "controlId": "flexibleColumnLayout",
+        "transition": "slide",
+        "bypassed": {
+          "target": [
+            "notFound"
+          ]
+        },
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": ":layout:",
+          "name": "salesreps",
+          "target": [
+            "salesreps"
+          ],
+          "layout": "OneColumn"
+        },
+        {
+          "pattern": "customers/{salesOrganization}/{salesMan}",
+          "name": "customers",
+          "target": [
+            "salesreps",
+            "customers"
+          ],
+          "layout": "TwoColumnsMidExpanded"
+        }
+      ],
+      "targets": {
+        "salesreps": {
+          "viewName": "SalesReps",
+          "viewId": "salesreps",
+          "viewLevel": 1,
+          "controlAggregation": "beginColumnPages"
+        },
+        "customers": {
+          "viewName": "Customers",
+          "viewId": "customers",
+          "viewLevel": 1,
+          "controlAggregation": "midColumnPages"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound",
+          "controlAggregation": "beginColumnPages"
+        }
+      }
+    }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "wui.cp"
+  },
+  "sap.platform.cf": {
+    "ui5VersionNumber": "1.120.26"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "@wui/wui.sd.rocket2",
+  "version": "1.0.3",
+  "author": "Marcus Lichtenberger <external.marcus.lichteberger@wuerth-it.com> (https://gitea.wgn.wuerth.com/ex00894245)",
+  "contributors": [
+    "Nabi Zamani, Nabisoft"
+  ],
+  "license": "UNLICENSED",
+  "description": "UI5 Seed Application",
+  "sapuxLayer": "CUSTOMER_BASE",
+  "keywords": [
+    "ui5",
+    "sapui5",
+    "application"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitea.wgn.wuerth.com/UI5/ui5-seed-application"
+  },
+  "publishConfig": {
+    "registry": "https://gitea.wgn.wuerth.com/api/packages/UI5/npm/"
+  },
+  "scripts": {
+    "postversion": "run-p _postversion:mta _postversion:manifest",
+    "start:ng7": "npx x-env -e=~/.user.ui5.env fiori run --config ui5-ng7.yaml --open \"/index.html?sap-ui-xx-viewCache=false\"",
+    "start:tg8": "npx x-env -e=~/.user.ui5.env fiori run --config ui5-tg8.yaml --open \"/index.html?sap-ui-xx-viewCache=false\"",
+    "start": "npx x-env -e=~/.user.ui5.env fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
+    "start:local": "npx x-env -e=~/.user.ui5.env fiori run --config ui5-local.yaml --open \"/index.html?sap-ui-xx-viewCache=false\"",
+    "test": "karma start",
+    "test:coverage": "run-s _clean-coverage _karma-coverage",
+    "test:ci": "run-s _clean-coverage _karma-ci",
+    "lint": "eslint webapp/",
+    "jsdoc": "jsdoc -c .jsdoc.json",
+    "release:abap": "run-s _clean-archive build:abap deploy:abap",
+    "deploy:abap": "npx x-env -e=~/.user.ui5.env node .scripts/deploy-abap.js deploy",
+    "deploy-test:abap": "npx x-env -e=~/.user.ui5.env node .scripts/deploy-abap.js test",
+    "undeploy:abap": "npx x-env -e=~/.user.ui5.env node .scripts/deploy-abap.js undeploy",
+    "build:abap": "ui5 build preload --clean-dest --include-task=generateCachebusterInfo --exclude-task=ui5-task-zipper webide-extension-task-updateManifestJson",
+    "release-local:cf": "run-s build:mta login-local-dev:cf deploy:cf",
+    "deploy:cf": "fiori cfDeploy -f",
+    "undeploy:cf": "cf undeploy ui5-wui-sd-rocket2 --delete-services --delete-service-keys --delete-service-brokers",
+    "build:mta": "shx rm -rf resources mta_archives && mbt build --mtar mta",
+    "build:cf": "ui5 build preload --clean-dest --include-task=generateCachebusterInfo --exclude-task=deploy-to-abap",
+    "login-local-dev:cf": "npx x-env -e=~/.user.ui5.env cf login -a $SAP_CF_DEV_HOST -o $SAP_CF_DEV_ORG_NAME -u $SAP_CF_DEV_AUTH_USR -p $SAP_CF_DEV_AUTH_PSW -s $SAP_CF_DEV_SPACE",
+    "login-dev:cf": "npx x-env cf login --origin $SAP_CF_DEV_ORIGIN -a $SAP_CF_DEV_HOST -o $SAP_CF_DEV_ORG_NAME -u $SAP_CF_DEV_AUTH_USR -p $SAP_CF_DEV_AUTH_PSW -s $SAP_CF_DEV_SPACE",
+    "_deploy:abap": "npx x-env -e=~/.user.ui5.env fiori deploy --config $deploy_config --yes",
+    "_deploy-test:abap": "npx x-env -e=~/.user.ui5.env fiori deploy --config $deploy_config --testMode true --yes",
+    "_undeploy:abap": "npx x-env -e=~/.user.ui5.env fiori undeploy --config $deploy_config --yes",
+    "_clean-coverage": "shx rm -rf reports/coverage",
+    "_clean-archive": "shx rm -f archive.zip",
+    "_karma-coverage": "karma start karma-coverage.conf.js",
+    "_karma-ci": "karma start karma-ci.conf.js",
+    "_postversion:mta": "npx x-env shx sed -i s/(.*:\\s*)(\\d+\\.\\d+\\.\\d+)/$1$npm_package_version/ mta.yaml",
+    "_postversion:manifest": "npx x-env json -f webapp/manifest.json -I -e \"this['sap.app'].applicationVersion.version='$npm_package_version'\""
+  },
+  "devDependencies": {
+    "@sap/ui5-builder-webide-extension": "^1.1.9",
+    "@sap/ux-ui5-tooling": "^1.15.6",
+    "@ui5/cli": "^4.0.9",
+    "@wui/ui5-theme-edlbelize": "~3.0.0",
+    "@wui/ui5-theme-hhwbelize": "~3.2.0",
+    "@wui/ui5-theme-hkbelizeci": "~3.0.0",
+    "@wui/ui5-theme-recabelize": "~3.0.0",
+    "@wui/ui5-theme-wuerthbelizeci": "~3.0.0",
+    "@wui/ui5-theme-wuerthgroup": "~2.0.0",
+    "@wui/wui.core": "^2.0.0",
+    "@wui/wui.m": "^2.1.0",
+    "@wui/wui.flp.plugin.statistics": "^2.0.0",
+    "eslint": "^9.13.0",
+    "eslint-plugin-jsdoc": "^50.4.3",
+    "globals": "^15.11.0",
+    "jsdoc": "^4.0.4",
+    "json": "^11.0.0",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-coverage": "^2.2.1",
+    "karma-ui5": "^4.0.1",
+    "mbt": "1.2.24",
+    "npm-run-all": "^4.1.5",
+    "shx": "^0.3.4",
+    "ui5-middleware-livereload": "^3.1.0",
+    "ui5-middleware-serveframework": "^3.3.0",
+    "ui5-task-zipper": "^3.3.0",
+    "ui5-tooling-transpile": "^3.5.0",
+    "x-var": "^2.0.1"
+  },
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "xsappname": "ui5-wui-sd-rocket2",
+  "tenant-mode": "dedicated",
+  "description": "UI5 Seed Application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    },
+    {
+      "name": "$XSAPPNAME.Display",
+      "description": "display"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": ["uaa.user"]
+    }
+  ]
+}

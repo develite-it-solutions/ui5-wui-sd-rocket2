@@ -1,0 +1,22 @@
+[
+  {
+    "SalesOrganization": "1000",
+    "SettingId": "01",
+    "SettingValue": "X"
+  },
+  {
+    "SalesOrganization": "1000",
+    "SettingId": "02",
+    "SettingValue": "25"
+  },
+  {
+    "SalesOrganization": "1000",
+    "SettingId": "03",
+    "SettingValue": "12"
+  },
+  {
+    "SalesOrganization": "1000",
+    "SettingId": "04",
+    "SettingValue": "5"
+  }
+]

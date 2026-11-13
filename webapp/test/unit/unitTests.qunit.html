@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+
+		<title>All unit tests</title>
+
+		<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-theme="sap_horizon"
+			data-sap-ui-noConflict="true"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-async="true"
+			data-sap-ui-resourceroots='{
+				"wui.sd.rocket2": "../../",
+				"wui.core": "/wui/core/",
+				"wui.m": "/wui/m/",
+				"wui.flp.plugin.statistics": "/wui/flp/plugin/statistics/"
+			}'
+			data-sap-ui-frameOptions="allow">	// NON-SECURE setting for testing environment
+		</script>
+
+		<link rel="stylesheet" href="../../resources/sap/ui/thirdparty/qunit-2.css"/>
+		<script src="../../resources/sap/ui/thirdparty/qunit-2.js"></script>
+		<script src="../../resources/sap/ui/thirdparty/sinon.js"></script>
+		<script src="../../resources/sap/ui/qunit/qunit-junit.js"></script>
+		<script src="../../resources/sap/ui/qunit/qunit-coverage.js"
+			data-sap-ui-cover-only="wui/sd/rocket2"
+			data-sap-ui-cover-never="[wui/sd/rocket2/test/, wui/sd/rocket2/thirdparty/, wui/sd/rocket2/themes/, wui/sd/rocket2/*Renderer.js]">
+		</script>
+		<script src="../../resources/sap/ui/qunit/QUnitUtils.js"></script>
+
+		<script>
+			QUnit.config.autostart = false;
+
+			sap.ui.getCore().attachInit(() => {
+				sap.ui.require([
+					"wui/sd/rocket2/test/unit/allTests"
+				], () => {
+					QUnit.start();
+				});
+			});
+		</script>
+
+	</head>
+	<body>
+		<div id="qunit"></div>
+		<div id="qunit-fixture"></div>
+	</body>
+</html>

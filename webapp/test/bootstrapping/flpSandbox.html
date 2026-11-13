@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Seed App</title>
+
+		<script src="js/ushell.config.js" id="my-ushell-config"></script>
+
+		<script src="../../test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
+
+		<!-- Bootstrap the UI5 core library -->
+		<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m, sap.ushell"
+			data-sap-ui-async="true"
+			data-sap-ui-theme="wuerthgroup"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-onInit="module:wui/sd/rocket2/test/bootstrapping/js/ushell.index"
+			data-sap-ui-theme-roots='{
+				"wuerthgroup" : "/themes/wuerthgroup/UI5/",
+				"wuerthbelizeci" : "/themes/wuerthbelizeci/UI5/",
+				"edlbelize" : "/themes/edlbelize/UI5/",
+				"hhwbelizeci" : "/themes/hhwbelize/UI5/",
+				"hkbelizeci" : "/themes/hkbelizeci/UI5/",
+				"recabelize" : "/themes/recabelize/UI5/"
+			}'
+			data-sap-ui-resourceroots='{
+				"wui.sd.rocket2": "../../",
+				"wui.core": "/wui/core/",
+				"wui.m": "/wui/m/",
+				"wui.flp.plugin.statistics": "/wui/flp/plugin/statistics/"
+			}'
+			data-sap-ui-frameOptions="allow"> 	// NON-SECURE setting for testing environment
+		</script>
+		<!--
+			For using the custom theme deployed on ABAP please use something lie this:
+			data-sap-ui-theme-roots='{"wuerthbelizeci" : "https://fldev.witglobal.net/sap/public/bc/themes/~client-001/"}'
+		-->
+
+	</head>
+
+	<!-- UI Content -->
+	<body class="sapUiBody" id="content">
+	</body>
+</html>

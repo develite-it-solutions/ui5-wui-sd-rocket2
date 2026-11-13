@@ -1,0 +1,132 @@
+specVersion: "4.0"
+metadata:
+  name: ui5-wui-sd-rocket2
+type: application
+
+framework:
+  name: SAPUI5
+  version: 1.120.26
+  libraries:
+    - name: sap.ui.core
+    - name: sap.m
+    - name: themelib_sap_horizon
+    # Required for local FLP, samples etc.
+    - name: sap.ushell
+      development: true
+    - name: sap.ui.dt
+      development: true
+    - name: sap.ui.rta
+      development: true
+    - name: sap.uxap
+      development: true
+    - name: sap.suite.ui.generic.template
+      development: true
+    - name: sap.ui.generic.template
+      development: true
+
+server:
+  customMiddleware:
+
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        ui5:
+          path:
+            - /resources
+            - /test-resources
+          url: https://sapui5ci.witglobal.net/sapui5
+          version: 1.120.26
+        backend:
+          - path: /sap/opu/odata
+            url: https://odatatg8.wgn.wuerth.com
+          - path: /sap/public/bc
+            url: https://odatatg8.wgn.wuerth.com
+
+    # Required to serve custom themes and libraries
+    - name: fiori-tools-servestatic
+      afterMiddleware: compression
+      configuration:
+        paths:
+          - path: /themes/wuerthgroup
+            src: "./node_modules/@wui/ui5-theme-wuerthgroup/src"
+          - path: /themes/wuerthbelizeci
+            src: "./node_modules/@wui/ui5-theme-wuerthbelizeci/src"
+          - path: /themes/recabelize
+            src: "./node_modules/@wui/ui5-theme-recabelize/src"
+          - path: /themes/edlbelize
+            src: "./node_modules/@wui/ui5-theme-edlbelize/src"
+          - path: /themes/hhwbelize
+            src: "./node_modules/@wui/ui5-theme-hhwbelize/src"
+          - path: /themes/hkbelizeci
+            src: "./node_modules/@wui/ui5-theme-hkbelizeci/src"
+          - path: /wui/core
+            src: "./node_modules/@wui/wui.core/src/wui/core"
+          - path: /wui/m
+            src: "./node_modules/@wui/wui.m/src/wui/m" 
+          - path: /wui/flp/plugin/statistics
+            src: "./node_modules/@wui/wui.flp.plugin.statistics/webapp"
+
+    - name: fiori-tools-appreload
+      afterMiddleware: compression
+      configuration:
+        port: 35729
+        path: webapp
+        delay: 300
+
+    - name: ui5-tooling-transpile-middleware
+      afterMiddleware: compression
+      configuration:
+        debug: false
+        removeConsoleStatements: false
+        transformAsyncToPromise: true
+
+    - name: ui5-middleware-serveframework
+      afterMiddleware: compression
+
+builder:
+  settings:    
+    includeDependency:
+      - moment
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+      - /index.html
+  customTasks:
+    # required only for ABAP deploy
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        log: 5
+        target:
+          url: https://odatatg8.wgn.wuerth.com
+          client: 001
+          auth: basic
+        app:
+          name: /WUC/UI5_SEED
+          description: "WS1: SAPUI5 Seed Application"
+          package: /WUC/CI
+          transport: TG8K906283
+        credentials:
+          username: env:SAP_GATEWAY_AUTH_USR
+          password: env:SAP_GATEWAY_AUTH_PSW
+
+--- # Project shims
+# moment.js dependency from package.json
+specVersion: "4.0"
+kind: extension
+type: project-shim
+metadata:
+  name: wui.sd.rocket2.thirdparty
+shims:
+  configurations:
+    moment: # name as defined in package.json
+      specVersion: "4.0"
+      type: module # Use module type
+      metadata:
+        name: moment
+      resources:
+        configuration:
+          paths:
+            /thirdparty/moment/: "min" # map root directory of moment module

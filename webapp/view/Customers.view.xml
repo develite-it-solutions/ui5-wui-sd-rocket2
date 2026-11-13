@@ -1,0 +1,387 @@
+<mvc:View
+	controllerName="wui.sd.rocket2.controller.Customers"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+
+	<f:DynamicPage
+		id="idCustomersPage"
+		headerExpanded="{layoutModel>/customersPage/headerExpanded}"
+		toggleHeaderOnTitleClick="{layoutModel>/customersPage/titleClickable}"
+		showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{parts: ['i18n>customersPageHeaderText', '/SelectedSalesRep/SalesManName'],
+								formatter: 'jQuery.sap.formatMessage'}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<VBox>
+				<List items="{path: '/CustomersSet'}" noDataText="{i18n>customersListNoDataText}" class="sapUiSmallMargin">
+					<CustomListItem type="Inactive">
+						<VBox class="sapUiTinyMargin">
+							<HBox>
+								<HBox>
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<Title text="{CustomerName}" titleStyle="H4" />
+								</HBox>
+								<VBox alignItems="End">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<HBox>
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<ObjectStatus
+											text="{i18n>highSensible}"
+											tooltip="{i18n>highSensible}"
+											icon="sap-icon://circle-task-2"
+											state="Error"
+											visible="{= ${PriceSensitivity} === '1' ? true : false }" />
+										<ObjectStatus
+											text="{i18n>mediumSensible}"
+											tooltip="{i18n>mediumSensible}"
+											icon="sap-icon://circle-task-2"
+											state="Warning"
+											visible="{= ${PriceSensitivity} === '2' ? true : false }" />
+										<ObjectStatus
+											text="{i18n>lowSensible}"
+											tooltip="{i18n>lowSensible}"
+											icon="sap-icon://circle-task-2"
+											state="Success"
+											visible="{= ${PriceSensitivity} === '3' ? true : false }" />
+									</HBox>
+								</VBox>
+							</HBox>
+							<HBox class="sapUiSmallMarginTop">
+								<Text text="{CustomerZipCode}" tooltip="{= ${rocket2Online>/#Position/CustomerZipCode/@sap:heading} === undefined ? ${rocket2Online>/#Position/CustomerZipCode/@sap:label} : ${rocket2Online>/#Position/CustomerZipCode/@sap:heading}}" />
+								<Text text="{CustomerCity}" class="sapUiTinyMarginBegin" tooltip="{= ${rocket2Online>/#Position/CustomerCity/@sap:heading} === undefined ? ${rocket2Online>/#Position/CustomerCity/@sap:label} : ${rocket2Online>/#Position/CustomerCity/@sap:heading}}" />
+							</HBox>
+							<HBox>
+								<VBox>
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<HBox class="sapUiTinyMarginTop">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<core:Icon src="sap-icon://wui/user-single-a-list" tooltip="{= ${rocket2Online>/#Position/Customer/@sap:heading} === undefined ? ${rocket2Online>/#Position/Customer/@sap:label} : ${rocket2Online>/#Position/Customer/@sap:heading}}" />
+										<Text text="{Customer}" class="sapUiTinyMarginBegin" tooltip="{= ${rocket2Online>/#Position/Customer/@sap:heading} === undefined ? ${rocket2Online>/#Position/Customer/@sap:label} : ${rocket2Online>/#Position/Customer/@sap:heading}}" />
+									</HBox>
+									<HBox class="sapUiTinyMarginTop">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<Label text="{= ${rocket2Online>/#Position/PgrCondCount/@sap:heading} === undefined ? ${rocket2Online>/#Position/PgrCondCount/@sap:label} : ${rocket2Online>/#Position/PgrCondCount/@sap:heading} }:" />
+										<Text text="{PgrCondCount}" class="sapUiTinyMarginBegin" />
+									</HBox>
+									<HBox class="sapUiTinyMarginTop">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<Label text="{= ${rocket2Online>/#Position/PrdCondCount/@sap:heading} === undefined ? ${rocket2Online>/#Position/PrdCondCount/@sap:label} : ${rocket2Online>/#Position/PrdCondCount/@sap:heading} }:" />
+										<Text text="{PrdCondCount}" class="sapUiTinyMarginBegin" />
+									</HBox>
+									<HBox class="sapUiTinyMarginTop" visible="false">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<core:Icon src="sap-icon://calendar" />
+										<Label text="{= ${rocket2Online>/#Position/IplDateOld/@sap:heading} === undefined ? ${rocket2Online>/#Position/IplDateOld/@sap:label} : ${rocket2Online>/#Position/IplDateOld/@sap:heading}}" class="sapUiTinyMarginBegin" visible="{= ${IplDateOld} === null ? false : true}" />
+										<Text
+											text="{
+													path: 'IplDateOld',
+													type: 'sap.ui.model.type.Date',
+													formatOptions: {
+														style: 'medium',
+														strictParsing: true,
+														UTC: false
+													}
+												}"
+											class="sapUiTinyMarginBegin"
+											tooltip="{= ${rocket2Online>/#Position/IplDateOld/@sap:heading} === undefined ? ${rocket2Online>/#Position/IplDateOld/@sap:label} : ${rocket2Online>/#Position/IplDateOld/@sap:heading}}"
+											visible="{= ${IplDateOld} === null ? false : true}" />
+										<Label text="{= ${rocket2Online>/#Position/IplDateSetByRocket/@sap:heading} === undefined ? ${rocket2Online>/#Position/IplDateSetByRocket/@sap:label} : ${rocket2Online>/#Position/IplDateSetByRocket/@sap:heading}}" class="sapUiTinyMarginBegin" visible="{= ${IplDateSetByRocket} === null ? false : true}" />
+										<Text
+											text="{
+													path: 'IplDateSetByRocket',
+													type: 'sap.ui.model.type.Date',
+													formatOptions: {
+														style: 'medium',
+														strictParsing: true,
+														UTC: false
+													}
+												}"
+											class="sapUiTinyMarginBegin"
+											tooltip="{= ${rocket2Online>/#Position/IplDateSetByRocket/@sap:heading} === undefined ? ${rocket2Online>/#Position/IplDateSetByRocket/@sap:label} : ${rocket2Online>/#Position/IplDateSetByRocket/@sap:heading}}"
+											visible="{= ${IplDateSetByRocket} === null ? false : true}" />
+									</HBox>
+								</VBox>
+								<VBox alignItems ="End">
+									<layoutData>
+										<FlexItemData growFactor="1" />
+									</layoutData>
+									<RadioButtonGroup id="ZvpconvVariant" selectedIndex="{ZvpconvVariant}" editable="{/Settings/Editable}" >
+										<RadioButton text="{= ${rocket2Online>/#Header/ZvpconvVariant0/@sap:heading} === undefined ? ${rocket2Online>/#Header/ZvpconvVariant0/@sap:label} : ${rocket2Online>/#Header/ZvpconvVariant0/@sap:heading}}" />
+										<RadioButton text="{= ${rocket2Online>/#Header/ZvpconvVariant1/@sap:heading} === undefined ? ${rocket2Online>/#Header/ZvpconvVariant1/@sap:label} : ${rocket2Online>/#Header/ZvpconvVariant1/@sap:heading} }" />
+									</RadioButtonGroup>
+								</VBox>
+							</HBox>
+							<Panel expandable="true" expanded="{IsExpanded}" headerText="{i18n>panelDetailDataHeaderText}" class="sapUiTinyMarginTop">
+								<VBox>
+									<HBox visible="false">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+										<core:Icon src="sap-icon://wui/user-male" tooltip="{= ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:heading} === undefined ? ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:label} : ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:heading}}" />
+										<Text
+											text="{
+													path: 'LastBuyPriceGroup',
+													type: 'sap.ui.model.type.Date',
+													formatOptions: {
+														style: 'medium',
+														strictParsing: true,
+														UTC: false
+													}
+												}"
+											class="sapUiTinyMarginBegin"
+											tooltip="{= ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:heading} === undefined ? ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:label} : ${rocket2Online>/#Position/LastBuyPriceGroup/@sap:heading}}" />
+									</HBox>
+									<HBox class="sapUISmallMarginTop">
+										<VBox>
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+											<Label text="" />
+											<Label text="{i18n>labelTurnover12Months}" />
+											<Label text="{i18n>labelTurnoverPriceGroups12Months} "/>
+											<Label text="{i18n>labelMarkupPriceGroups12Months}" visible="false" />
+											<Label text="{i18n>labelMarketpriceLevel}" />
+											<Label text="{i18n>labelProducts12Months}" visible="false" />
+											<Label text="{i18n>labelProductsPriceGroups12Months}" visible="false" />
+											<Label text="{i18n>labelContactPointSalesMan12Months}" visible="false" />
+											<Label text="{i18n>labelContactPointPickupShop12Months}" visible="false" />
+											<Label text="{i18n>labelContactPointEBusiness12Months}" visible="false" />
+											<Label text="{i18n>labelContactPointIntern12Months}" visible="false" />
+											<Label text="{i18n>labelContactPointOthers12Months}" visible="false" />
+										</VBox>
+
+										<VBox alignItems="End" visible="false">
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+											<Label text="{i18n>label12Months}" design="Bold" visible="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'TOTotal12M'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false"
+												visible="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'TOPriceGroup12M'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false"
+												visible="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'MarkupTOPriceGroup12M'},'%'],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="%"
+												emphasized="false"
+												visible="false" />
+											<ObjectNumber
+												number="{
+													path: 'MarketPriceLevelTotal12M',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												}"
+												unit="%"
+												emphasized="false"
+												visible="false" />
+											<Text text="{Products12M}" visible="false" />
+											<Text text="{ProductsPriceGroup12M}" visible="false" />
+											<Text text="{ContactPointSalesMan12M}" visible="false" />
+											<Text text="{ContactPointPickupShop12M}" visible="false" />
+											<Text text="{ContactPointEBusiness12M}" visible="false" />
+											<Text text="{ContactPointInternal12M}" visible="false" />
+											<Text text="{ContactPointOthers12M}" visible="false" />
+										</VBox>
+
+										<VBox alignItems="End">
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+											<Label text="{i18n>labelActualYear}" design="Bold" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'TOTotalAY'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'TOPriceGroupAY'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'MarkupTOPriceGroupAY'},'%'],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="%"
+												emphasized="false"
+												visible="false" />
+											<ObjectNumber
+												number="{
+													path: 'MarketPriceLevelTotalAY',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												}"
+												unit="%"
+												emphasized="false" />
+											<Text text="{ProductsAY} ({ProductsAYPYTrend})" visible="false" />
+											<Text text="{ProductsPriceGroupAY} ({ProductsPriceGroupAYLYTrend})" visible="false" />
+											<Text text="{ContactPointSalesManAY}" visible="false" />
+											<Text text="{ContactPointPickupShopAY}" visible="false" />
+											<Text text="{ContactPointEBusinessAY}" visible="false" />
+											<Text text="{ContactPointInternalAY}" visible="false" />
+											<Text text="{ContactPointOthersAY}" visible="false" />
+										</VBox>
+
+										<VBox alignItems="End">
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+											<Label text="{i18n>labelPreviousYear}" design="Bold" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'ToTotalPYWithTimeFrameAY'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'TOPriceGroupPYTimeFrameAY'},{path:'CustomerCurrency'}],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="{CustomerCurrency}"
+												emphasized="false" />
+											<ObjectNumber
+												number="{
+													parts:[{path:'MarkupTOPriceGroupPY'},'%'],
+													type: 'sap.ui.model.type.Currency',
+													formatOptions: {showMeasure: false}
+													}"
+												unit="%"
+												emphasized="false"
+												visible="false" />
+											<ObjectNumber
+												number="{
+													path: 'MarketPriceLevelTotalPY',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												}"
+												unit="%"
+												emphasized="false" />
+											<Text text="{ProductsPY}" visible="false" />
+											<Text text="{ProductsPriceGroupPY}" visible="false" />
+											<Text text="{ContactPointSalesManPY}" visible="false" />
+											<Text text="{ContactPointPickupShopPY}" visible="false" />
+											<Text text="{ContactPointEBusinessPY}" visible="false" />
+											<Text text="{ContactPointInternalPY}" visible="false" />
+											<Text text="{ContactPointOthersPY}" visible="false" />
+										</VBox>
+
+										<VBox alignItems="End">
+											<layoutData>
+												<FlexItemData growFactor="1" />
+											</layoutData>
+											<Label text="{i18n>labelChange}" design="Bold" />
+											<ObjectStatus
+												text="{
+													path: 'TOTotalAYPYTrend',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minIntegerDigits: 1,
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												} %"
+												state="{= ${TOTotalAYPYTrend} >= 0 ? ${TOTotalAYPYTrend} > 0 ? 'Success' : 'None' : 'Error' }"
+											/>
+											<ObjectStatus
+												text="{
+													path: 'TOPriceGroupAYPYTrend',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minIntegerDigits: 1,
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												} %"
+												state="{= ${TOPriceGroupAYPYTrend} >= 0 ? ${TOPriceGroupAYPYTrend} > 0 ? 'Success' : 'None' : 'Error' }"
+											/>
+											<ObjectStatus
+												text="{
+													path: 'MarketPriceLevelTotalChange',
+													type: 'sap.ui.model.type.Float',
+													formatOptions: {
+														minIntegerDigits: 1,
+														minFractionDigits: 2,
+														maxFractionDigits: 2
+													}
+												} %"
+												state="{= ${MarketPriceLevelTotalChange} >= 0 ? ${MarketPriceLevelTotalChange} > 0 ? 'Success' : 'None' : 'Error' }"
+											/>
+										</VBox>
+									</HBox>
+								</VBox>
+							</Panel>
+						</VBox>
+					</CustomListItem>
+				</List>
+			</VBox>
+		</f:content>
+		<f:footer>
+			<Toolbar>
+				<ToolbarSpacer />
+				<Button text="{i18n>saveButtonText}" press="pressSaveButton" type="Accept" visible="{/Settings/Editable}" />
+			</Toolbar>
+		</f:footer>
+	</f:DynamicPage>
+</mvc:View>

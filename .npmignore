@@ -1,0 +1,27 @@
+# build artifacts
+test
+dist/ui5-wui-sd-rocket2.zip
+archive.zip
+reports
+resources
+jsdoc
+mta_archives
+
+# deprecated artifacts
+.user.nabi.json  
+@nabiTestResources  
+@nabiAppResources
+
+# Node
+node_modules
+npm-debug.log
+debug.log
+
+# IDE and tooling
+.idea
+.editorconfig
+.eslintrc
+.settings
+
+# other
+Jenkinsfile

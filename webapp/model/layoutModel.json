@@ -1,0 +1,11 @@
+{
+	"layout": "OneColumn",
+	"salesRepsPage": {
+		"headerExpanded": false,
+		"titleClickable": false
+	},
+	"customersPage": {
+		"headerExpanded": false,
+		"titleClickable": false
+	}
+}

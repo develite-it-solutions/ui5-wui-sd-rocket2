@@ -1,0 +1,51 @@
+# build artifacts
+build
+dist
+target
+tmp
+jsdoc
+reports
+*.zip
+Makefile*
+resources
+mta_archives
+
+# deprecated artifacts
+.user.nabi.json
+@nabiTestResources
+@nabiAppResources
+
+# Eclipse
+.project
+.classpath
+.settings/
+.launch
+.launch/
+
+# Netbeans
+nb-configuration.xml
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+# visual studio code
+.vscode
+
+# Mac
+.DS_Store
+
+# Node
+node_modules
+npm-debug.log
+debug.log
+
+# eslint
+eslint.log
+eslint.tap
+
+# Other
+log
+bin
+.env

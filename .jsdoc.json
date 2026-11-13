@@ -1,0 +1,15 @@
+{
+	"source": {
+		"include": ["webapp", "README.md"],
+		"includePattern": ".js$",
+		"exclude": ["webapp/themes", "webapp/test", "webapp/thirdparty", "webapp/lib"]
+	},
+	"plugins": ["plugins/markdown"],
+	"templates": {
+		"cleverLinks": true
+	},
+	"opts": {
+		"recurse": true,
+		"destination": "jsdoc"
+	}
+}
