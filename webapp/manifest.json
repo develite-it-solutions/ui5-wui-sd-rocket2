@@ -24,7 +24,7 @@
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
-          "localUri": "test/localservice/metadata.xml"
+          "localUri": "localservice/metadata.xml"
         }
       }
     },
@@ -154,7 +154,7 @@
           "layout": "OneColumn"
         },
         {
-          "pattern": "customers/{salesOrganization}/{salesMan}",
+          "pattern": "customers/{salesOrganization}/{salesRep}",
           "name": "customers",
           "target": [
             "salesreps",

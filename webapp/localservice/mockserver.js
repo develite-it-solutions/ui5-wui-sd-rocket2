@@ -18,7 +18,7 @@ sap.ui.define([
       const oUriParameters = new UriParameters(window.location.href);
 			const sJsonFilesUrl = sap.ui.require.toUrl(_sJsonFilesModulePath);
 			const sMetadataUrl = sap.ui.require.toUrl(_sAppModulePath + "localservice/metadata.xml");
-			const sMockServerUrl = "/sap/opu/odata/WUE/DINO_ROCKET_SRV/";
+			const sMockServerUrl = "/sap/opu/odata/W4E/rkt2_srv/";
 
 			oMockServer = new MockServer({
 				rootUri: sMockServerUrl
@@ -55,8 +55,8 @@ sap.ui.define([
 
 			oMockServer.attachAfter("GET", (oEvent) => {
 				const aEntities = oEvent.getParameter("oFilteredData")["results"];
-				_oLogger.info(`Returning ${aEntities.length} entries`, 'GET_ProductSet')
-			}, "ProductSet");
+				_oLogger.info(`Returning ${aEntities.length} entries`, "GET_PositionSet");
+			}, "PositionSet");
 
 			oMockServer.start();
 
